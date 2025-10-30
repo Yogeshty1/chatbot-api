@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # DeepSeek AI Chat Application
 
 A full-stack application that provides an interface to interact with DeepSeek AI through OpenRouter API.
@@ -80,6 +79,3 @@ curl -X POST http://localhost:8080/test \
 ## License
 
 ISC
-=======
-# chatbot-api
->>>>>>> d960c2286dcd0210e18ac677e1ff3fa98ccc7cdc

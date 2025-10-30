@@ -1,68 +1,81 @@
-# DeepSeek AI Chat API
+# DeepSeek AI Chat Application
 
-A Node.js Express server that provides an API endpoint to interact with DeepSeek AI through OpenRouter.
+A full-stack application that provides an interface to interact with DeepSeek AI through OpenRouter API.
+
+## Project Structure
+
+```
+GPTS/
+├── Backend/          # Node.js Express API server
+│   ├── server.js     # Main server file
+│   ├── package.json  # Dependencies and scripts
+│   └── README.md     # Backend documentation
+├── Frontend/         # Frontend application (to be implemented)
+└── README.md         # This file
+```
 
 ## Features
 
-- RESTful API endpoint for AI chat
-- Integration with DeepSeek AI via OpenRouter
-- CORS enabled for frontend integration
-- Error handling and validation
-- Environment variable configuration
+- **Backend API**: RESTful API endpoint for AI chat interactions
+- **DeepSeek AI Integration**: Uses OpenRouter to access DeepSeek AI models
+- **CORS Support**: Configured for frontend integration
+- **Error Handling**: Comprehensive error handling and validation
+- **Environment Configuration**: Secure API key management
 
-## Setup
+## Quick Start
 
-1. Install dependencies:
+### Backend Setup
+
+1. Navigate to the Backend directory:
+   ```bash
+   cd Backend
+   ```
+
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Create a `.env` file in the Backend directory:
+3. Create a `.env` file with your OpenRouter API key:
    ```
    OPENROUTER_API_KEY=your_openrouter_api_key_here
    ```
 
-3. Start the server:
+4. Start the server:
    ```bash
    npm start
    ```
 
-## API Usage
+The API will be available at `http://localhost:8080`
 
-### POST /test
+### API Usage
 
-Send a message to DeepSeek AI and get a response.
+Send a POST request to `/test` endpoint:
 
-**Request:**
-```json
-{
-  "message": "Your question or message here"
-}
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "message": "AI response here"
-}
-```
-
-**Example using curl:**
 ```bash
 curl -X POST http://localhost:8080/test \
   -H "Content-Type: application/json" \
   -d '{"message": "Hello, how are you?"}'
 ```
 
-## Technologies Used
+## Technologies
 
-- Node.js
-- Express.js
-- OpenAI SDK
-- CORS
-- dotenv
+- **Backend**: Node.js, Express.js
+- **AI Integration**: OpenAI SDK, OpenRouter API
+- **Security**: CORS, Environment variables
+- **Development**: dotenv for configuration
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ## Author
 
 [Yogesh Tiwari](https://github.com/Yogeshty1)
+
+## License
+
+ISC
