@@ -39,15 +39,6 @@ A full-stack application that provides an interface to interact with DeepSeek AI
    ```
 
 
-### API Usage
-
-Send a POST request to `/test` endpoint:
-
-```bash
-curl -X POST http://localhost:8080/test \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Hello, how are you?"}'
-```
 
 ## Technologies
 
