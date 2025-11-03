@@ -22,33 +22,6 @@ GPTS/
 - **Error Handling**: Comprehensive error handling and validation
 - **Environment Configuration**: Secure API key management
 
-## Quick Start
-
-### Backend Setup
-
-1. Navigate to the Backend directory:
-   ```bash
-   cd Backend
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Create a `.env` file with your OpenRouter API key:
-   ```
-   OPENROUTER_API_KEY=your_openrouter_api_key_here
-   ```
-
-4. Start the server:
-   ```bash
-   npm start
-   ```
-
-The API will be available at `http://localhost:8080`
-
-
 ## Technologies
 
 - **Backend**: Node.js, Express.js
