@@ -1,34 +1,34 @@
 import "dotenv/config";
-import OpenAI from "openai";
+import { Groq } from 'groq-sdk';
 
-const client = new OpenAI({
-  apiKey: process.env.OPENROUTER_API_KEY,
-  baseURL: "https://openrouter.ai/api/v1",
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
 });
 
-const getOpenAIAPIResponse = async(message) => {
-    try {
-        if (!message) {
-        throw new Error("Message is required");
-        }
-
-
-        const aiResponse = await client.chat.completions.create({
-        model: "deepseek/deepseek-chat",
-        messages: [
-            { role: "system", content: "You are DeepSeek AI, created by DeepSeek. You should always identify yourself as DeepSeek AI, not as OpenAI or any other company." },
-            { role: "user", content: message },
-        ],
-        });
-    
-        console.log("User message:", message);
-        console.log("AI response:", aiResponse.choices[0].message.content);
-        
-        return aiResponse.choices[0].message.content;
-    } catch (err) {
-    console.error("❌ Error:", err.message);
-    throw err;
+const getOpenAIAPIResponse = async (message) => {
+  try {
+    if (!message) {
+      throw new Error("Message is required");
     }
+
+    const completion = await groq.chat.completions.create({
+      messages: [
+        { role: "system", content: "You are a helpful AI assistant." },
+        { role: "user", content: message },
+      ],
+      model: "llama-3.3-70b-versatile", // Using the recommended model from Groq
+      temperature: 0.7,
+      max_tokens: 1024,
+      top_p: 1,
+      stream: false,
+    });
+
+    return completion.choices[0]?.message?.content || "I'm sorry, I couldn't generate a response.";
+  } catch (err) {
+    console.error("❌ Error:", err.message);
+    console.error("Full error details:", err); // Log full error for debugging
+    throw err;
+  }
 };
 
 export default getOpenAIAPIResponse;
