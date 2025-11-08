@@ -4,6 +4,14 @@ import getOpenAIAPIResponse from "../utils/openai.js";
 
 const router = express.Router();
 
+
+
+// Test route
+router.get('/', (req, res) => {
+  console.log('Test route hit');
+  res.json({ message: 'API is working!' });
+});
+
 //test
 router.post("/test", async(req, res) => {
     try {
