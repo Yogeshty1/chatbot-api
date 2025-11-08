@@ -9,10 +9,18 @@ dotenv.config();
 
 //middleware
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
+
+// CORS configuration
+const corsOptions = {
+  origin: '*', // In production, replace with your frontend URL
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204
+};
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Import and use chat routes
 app.use("/api", chatRouter);
