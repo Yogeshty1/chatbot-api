@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8080;
 // CORS configuration
 const allowedOrigins = [
   'http://localhost:5173', // Local development
-  'https://chatbot-api-hvy5.vercel.app' // Your frontend URL
+  'https://chatbot-api-three-swart.vercel.app' // Your backend URL
 ];
 
 const corsOptions = {
