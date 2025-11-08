@@ -1,5 +1,5 @@
 import express from "express";
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 import cors from "cors";
 import mongoose from "mongoose";
 import chatRouter from "./routes/chat.js";
@@ -7,32 +7,14 @@ import chatRouter from "./routes/chat.js";
 // Load environment variables from .env file
 dotenv.config();
 
-// Initialize Express app
+//middleware
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = 8080;
 
-// CORS configuration - temporarily permissive for testing
-const corsOptions = {
-  origin: '*', // Allow all origins - update this in production
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-  optionsSuccessStatus: 204
-};
-
-app.use(cors(corsOptions));
-
-// Log all incoming requests for debugging
-app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
-  console.log('Headers:', req.headers);
-  console.log('Body:', req.body);
-  next();
-});
-
-// Parse JSON bodies
 app.use(express.json());
+app.use(cors());
 
-// Routes
+// Import and use chat routes
 app.use("/api", chatRouter);
 
 const connectDB = async () => {
