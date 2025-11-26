@@ -12,7 +12,14 @@ const app = express();
 const PORT = 8080;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://chatbot-h513znl91-yogeshs-projects-5026fb04.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:5173' // Add this if you're using Vite's default port
+  ],
+  credentials: true
+}));
 
 // Import and use chat routes
 app.use("/api", chatRouter);
