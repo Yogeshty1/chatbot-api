@@ -6,12 +6,10 @@ const router = express.Router();
 
 
 
-// Test route
 router.get('/', (req, res) => {
-  console.log('Test route hit');
-  res.json({ message: 'API is working!' });
+  console.log('Test route hit');  // Logs to server console (useful for debugging)
+  res.json({ message: 'API is working!' });  // Sends a JSON response
 });
-
 //test
 router.post("/test", async(req, res) => {
     try {
