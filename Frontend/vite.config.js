@@ -7,11 +7,9 @@ export default ({ mode }) => {
   return defineConfig({
     plugins: [react()],
     define: {
-      // Only include Vite prefixed env vars
       ...Object.entries(env).reduce((acc, [key, val]) => {
         if (key.startsWith('VITE_')) {
           acc[`import.meta.env.${key}`] = JSON.stringify(val);
-          // For backward compatibility
           acc[`process.env.${key}`] = JSON.stringify(val);
         }
         return acc;
@@ -26,20 +24,18 @@ export default ({ mode }) => {
       port: 3000,
       open: true
     },
-    base: './', // Changed to relative path
+    base: '/', // Changed to root-relative path for Vercel
     build: {
+      target: 'es2020', // Add this for better browser compatibility
       outDir: 'dist',
       assetsDir: 'assets',
       sourcemap: true,
-      minify: 'esbuild', // Changed from terser to esbuild for better performance
+      minify: 'esbuild',
       rollupOptions: {
         output: {
           manualChunks: {
-            // Split vendor and app code
             vendor: ['react', 'react-dom'],
-            // Add other large dependencies here
           },
-          // Ensure consistent hashing for better caching
           entryFileNames: 'assets/[name]-[hash].js',
           chunkFileNames: 'assets/[name]-[hash].js',
           assetFileNames: 'assets/[name]-[hash][extname]'
