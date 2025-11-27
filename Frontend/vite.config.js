@@ -1,9 +1,7 @@
-import { defineConfig, loadEnv } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default ({ mode }) => {
-  // Load env file based on `mode` in the current directory and its parent directories
   const env = loadEnv(mode, process.cwd(), '');
 
   return defineConfig({
@@ -13,11 +11,27 @@ export default ({ mode }) => {
     },
     server: {
       port: 3000,
-      open: true
+      open: true,
+      // Enable CORS for development
+      cors: true,
     },
     preview: {
       port: 3000,
       open: true
-    }
+    },
+    // Add base URL for production
+    base: mode === 'production' ? '/' : '/',
+    build: {
+      outDir: 'dist',
+      assetsDir: 'assets',
+      sourcemap: true,
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+      },
+    },
   });
 };
