@@ -4,7 +4,6 @@ import react from '@vitejs/plugin-react';
 export default ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   
-  // Only include environment variables that start with VITE_
   const envWithProcessPrefix = Object.entries(env).reduce(
     (prev, [key, val]) => {
       if (key.startsWith('VITE_')) {
@@ -27,7 +26,7 @@ export default ({ mode }) => {
       port: 3000,
       open: true
     },
-    base: mode === 'production' ? '/' : '/',
+    base: '/', // Ensure base is set to root
     build: {
       outDir: 'dist',
       assetsDir: 'assets',
@@ -37,6 +36,14 @@ export default ({ mode }) => {
         compress: {
           drop_console: true,
           drop_debugger: true,
+        },
+      },
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Split vendor and app code
+            vendor: ['react', 'react-dom'],
+          },
         },
       },
     },
