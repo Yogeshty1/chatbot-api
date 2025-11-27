@@ -3,23 +3,30 @@ import react from '@vitejs/plugin-react';
 
 export default ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
+  
+  // Only include environment variables that start with VITE_
+  const envWithProcessPrefix = Object.entries(env).reduce(
+    (prev, [key, val]) => {
+      if (key.startsWith('VITE_')) {
+        prev[`process.env.${key}`] = JSON.stringify(val);
+      }
+      return prev;
+    },
+    {}
+  );
 
   return defineConfig({
     plugins: [react()],
-    define: {
-      'process.env': env
-    },
+    define: envWithProcessPrefix,
     server: {
       port: 3000,
       open: true,
-      // Enable CORS for development
       cors: true,
     },
     preview: {
       port: 3000,
       open: true
     },
-    // Add base URL for production
     base: mode === 'production' ? '/' : '/',
     build: {
       outDir: 'dist',
