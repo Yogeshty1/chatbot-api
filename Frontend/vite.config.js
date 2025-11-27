@@ -3,20 +3,20 @@ import react from '@vitejs/plugin-react';
 
 export default ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  
-  const envWithProcessPrefix = Object.entries(env).reduce(
-    (prev, [key, val]) => {
-      if (key.startsWith('VITE_')) {
-        prev[`process.env.${key}`] = JSON.stringify(val);
-      }
-      return prev;
-    },
-    {}
-  );
 
   return defineConfig({
     plugins: [react()],
-    define: envWithProcessPrefix,
+    define: {
+      // Only include Vite prefixed env vars
+      ...Object.entries(env).reduce((acc, [key, val]) => {
+        if (key.startsWith('VITE_')) {
+          acc[`import.meta.env.${key}`] = JSON.stringify(val);
+          // For backward compatibility
+          acc[`process.env.${key}`] = JSON.stringify(val);
+        }
+        return acc;
+      }, {})
+    },
     server: {
       port: 3000,
       open: true,
@@ -26,26 +26,25 @@ export default ({ mode }) => {
       port: 3000,
       open: true
     },
-    base: '/', // Ensure base is set to root
+    base: './', // Changed to relative path
     build: {
       outDir: 'dist',
       assetsDir: 'assets',
       sourcemap: true,
-      minify: 'terser',
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-        },
-      },
+      minify: 'esbuild', // Changed from terser to esbuild for better performance
       rollupOptions: {
         output: {
           manualChunks: {
             // Split vendor and app code
             vendor: ['react', 'react-dom'],
+            // Add other large dependencies here
           },
-        },
-      },
-    },
+          // Ensure consistent hashing for better caching
+          entryFileNames: 'assets/[name]-[hash].js',
+          chunkFileNames: 'assets/[name]-[hash].js',
+          assetFileNames: 'assets/[name]-[hash][extname]'
+        }
+      }
+    }
   });
 };
