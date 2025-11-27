@@ -36,9 +36,10 @@ function Sidebar() {
         setCurrThreadId(newThreadId);
 
         try {
-            const response = await fetch(`http://localhost:8080/api/thread/${newThreadId}`);
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+            const response = await fetch(`${apiUrl}/api/thread/${newThreadId}`);
             const res = await response.json();
-            console.log(res);
+            console.log('Thread data:', res);
             setPrevChats(res);
             setNewChat(false);
             setReply(null);
