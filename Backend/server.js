@@ -14,8 +14,10 @@ const PORT = 8080;
 app.use(express.json());
 app.use(cors({
   origin: [
-    'https://chatbot-g0l744ssl-yogeshs-projects-5026fb04.vercel.app',
-    'https://chatbot-h513znl91-yogeshs-projects-5026fb04.vercel.app',
+    'https://chatbot-api-ashy.vercel.app',
+    'https://chatbot-api-lac.vercel.app',
+    'https://chatbot-api-git-main-yogeshty1s-projects.vercel.app',
+    'https://*.vercel.app',  // This will allow all Vercel preview URLs
     'http://localhost:3000',
     'http://localhost:5173'
   ],
