@@ -14,12 +14,18 @@ const PORT = 8080;
 app.use(express.json());
 app.use(cors({
   origin: [
+    'https://chatbot-g0l744ssl-yogeshs-projects-5026fb04.vercel.app',
     'https://chatbot-h513znl91-yogeshs-projects-5026fb04.vercel.app',
     'http://localhost:3000',
-    'http://localhost:5173' // Add this if you're using Vite's default port
+    'http://localhost:5173'
   ],
   credentials: true
 }));
+
+// Root route for testing
+app.get('/', (req, res) => {
+  res.send('Backend server is running!');
+});
 
 // Import and use chat routes
 app.use("/api", chatRouter);
